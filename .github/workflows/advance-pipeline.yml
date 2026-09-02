@@ -37,7 +37,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: build-image
-        run: docker build -t my-advance-app
+        run: docker build -t my-advance-app .
 
       - name: log to aws
         uses: aws-actions/configure-aws-credentials@v4
