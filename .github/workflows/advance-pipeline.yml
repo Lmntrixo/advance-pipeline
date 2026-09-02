@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ main ]
 
-permisions:
+permissions:
   contents: read
 
 jobs:
@@ -44,7 +44,7 @@ jobs:
 
       - name: log to aws
         uses: aws-actions/configure-aws-credentials@v4
-        with-role-to-assume:
-        aws-region: eu-central-1
+          with-role-to-assume:
+          aws-region: eu-central-1
 
 
