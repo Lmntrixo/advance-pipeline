@@ -37,7 +37,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: build-image
-        run: docker build -t my-advance-app .
+        run: docker build -t my-advance-app:${{ github.sha }} .
 
       - name: log to aws
         uses: aws-actions/configure-aws-credentials@v4
@@ -46,6 +46,6 @@ jobs:
           aws-region: eu-central-1
       - name: push to ec2
         run: |
-          docker tag my-advance-app:v1 ${{ secrets.EC2_REPOSITORY_URI }}:v1
-          docker push ${{ secrets.EC2_REPOSITORY_URI }}:v1
+          docker tag my-advance-app:${{ github.sha }} ${{ secrets.EC2_REPOSITORY_URI }}:v1
+          docker push ${{ secrets.EC2_REPOSITORY_URI }}:${{ github.sha }}
 
