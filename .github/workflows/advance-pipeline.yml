@@ -42,7 +42,10 @@ jobs:
       - name: log to aws
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume:
+          role-to-assume: arn:aws:iam::875691018539:role/GitHubActionsWorkflowRole
           aws-region: eu-central-1
-
+      - name: push to ec2
+        run: |
+          docker tag my-advance-app:v1
+          docker push my-advance-app:v1 {{secrets.EC2_REPOSITORY_URI }}
 
