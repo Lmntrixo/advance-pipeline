@@ -47,16 +47,16 @@ jobs:
       - name: log to ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: build-image
+      - name: build-image-docker
         run: docker build -t my-advance-app:${{ github.sha }} .
 
-      - name: scan of vulnerabilities
+      - name: scan of vulnerabilities with trivy
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: my-advance-app:${{ github.sha }}
           format: "table"
           severity: "CRITICAL"
-          exit: "1"
+          exit-code: "1"
 
       - name: push to ec2
         run: |
