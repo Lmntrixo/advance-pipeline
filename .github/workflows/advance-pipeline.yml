@@ -64,3 +64,13 @@ jobs:
           docker tag my-advance-app:${{ github.sha }} ${{ secrets.EC2_REPOSITORY_URI }}:${{ github.sha }}
           docker push ${{ secrets.EC2_REPOSITORY_URI }}:${{ github.sha }}
 
+
+
+      - name: notify frontend repo
+        if: success()
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.DISPATCH_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/Lmntrixo/mon-frontend-mock/dispatches \
+            -d '{"event_type":"backend-deployed","client_payload":{"sha":"${{ github.sha }}"}}'
