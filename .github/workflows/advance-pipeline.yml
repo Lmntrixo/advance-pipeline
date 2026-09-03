@@ -50,6 +50,14 @@ jobs:
       - name: build-image
         run: docker build -t my-advance-app:${{ github.sha }} .
 
+      - name: scan of vulnerabilities
+        uses: aquasecurity/trivy-actions@v5
+        with:
+          image-ref: my-advance-app:${{ github.sha }}
+          format: "table"
+          severity: "CRITICAL"
+          exit: "1"
+
       - name: push to ec2
         run: |
           docker tag my-advance-app:${{ github.sha }} ${{ secrets.EC2_REPOSITORY_URI }}:${{ github.sha }}
