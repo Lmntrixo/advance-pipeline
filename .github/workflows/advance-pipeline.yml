@@ -36,14 +36,20 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
-      - name: build-image
-        run: docker build -t my-advance-app:${{ github.sha }} .
+      #- name: build-image
+       # run: docker build -t my-advance-app:${{ github.sha }} .
 
       - name: log to aws
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::875691018539:role/GitHubActionsWorkflowRole
           aws-region: eu-central-1
+      - name: log to ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: build-image
+        run: docker build -t my-advance-app:{{ github.sha }}
+
       - name: push to ec2
         run: |
           docker tag my-advance-app:${{ github.sha }} ${{ secrets.EC2_REPOSITORY_URI }}:${{ github.sha }}
