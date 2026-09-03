@@ -59,7 +59,7 @@ jobs:
           severity: "CRITICAL"
           exit-code: "1"
 
-      - name: push to ec2
+      - name: push image-docker to ec2
         run: |
           docker tag my-advance-app:${{ github.sha }} ${{ secrets.EC2_REPOSITORY_URI }}:${{ github.sha }}
           docker push ${{ secrets.EC2_REPOSITORY_URI }}:${{ github.sha }}
