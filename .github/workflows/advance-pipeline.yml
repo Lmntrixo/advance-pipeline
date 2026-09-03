@@ -51,7 +51,7 @@ jobs:
         run: docker build -t my-advance-app:${{ github.sha }} .
 
       - name: scan of vulnerabilities
-        uses: aquasecurity/trivy-actions@v5
+        uses: aquasecurity/trivy-action@master
         with:
           image-ref: my-advance-app:${{ github.sha }}
           format: "table"
