@@ -48,7 +48,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: build-image
-        run: docker build -t my-advance-app:{{ github.sha }}
+        run: docker build -t my-advance-app:{{ github.sha }} .
 
       - name: push to ec2
         run: |
